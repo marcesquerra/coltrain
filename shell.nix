@@ -1,5 +1,3 @@
-
-
 let
   nixpkgs = (import (fetchTarball {
     url = "https://github.com/nixos/nixpkgs/tarball/a1fe662eb26ffc2a036b37c4670392ade632c413";
@@ -11,5 +9,5 @@ let
 in
   pkgs.mkShell {
     name = "coltarain-shell";
-    nativeBuildInputs = [ niv ];
+    nativeBuildInputs = [ niv pkgs.jekyll ];
   }
