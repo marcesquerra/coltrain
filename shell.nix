@@ -9,5 +9,5 @@ let
 in
   pkgs.mkShell {
     name = "coltarain-shell";
-    nativeBuildInputs = [ niv pkgs.jekyll ];
+    nativeBuildInputs = [ niv pkgs.nodePackages.browser-sync ];
   }
