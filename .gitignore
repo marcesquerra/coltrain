@@ -1,3 +1,8 @@
 .direnv/
 .jekyll-cache/
 _site/
+
+
+# Added by cargo
+
+/target

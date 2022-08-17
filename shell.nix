@@ -5,10 +5,37 @@ let
   })){};
   sources = import ./nix/sources.nix;
   niv = ((import sources.niv) {}).niv;
-  pkgs = import sources.nixpkgs { overlays = [] ; config = {}; };
+  moz-overlay = ((import sources.nixpkgs-mozilla) ) ;
+  pkgs = import sources.nixpkgs { overlays = [ moz-overlay ] ; config = {}; };
+  rust = (pkgs.rustChannelOf { date = "2022-08-11"; channel = "stable"; }).rust;
+  rustPlatform = pkgs.makeRustPlatform{
+      cargo = rust;
+      rustc = rust;
+    };
+  getFromCargo = {src, cargoSha256, nativeBuildInputs ? [], cargoBuildFlags ? []} :
+    let
+      lib = pkgs.lib;
+      asName = candidates :
+        let
+          ts = e: if (builtins.isAttrs e) && (builtins.hasAttr "name" e) && e.name != null then e.name else toString e;
+          stringCandidates = map ts candidates;
+          wholeString = lib.concatStrings stringCandidates;
+        in
+          builtins.hashString "sha256" wholeString;
+    in
+      rustPlatform.buildRustPackage rec {
+        inherit src cargoSha256 nativeBuildInputs cargoBuildFlags;
+        pname = "cargo-${asName [src]}";
+        version = "N/A";
+        doCheck = false;
+      };
+  rust-analayzer = getFromCargo {
+    src = sources.rust-analyzer;
+    cargoSha256 = "sha256-brt02yLr5kUgTjgpugewuPeiYdFwxMngZCmhan3CgEM=";
+  };
 in
   pkgs.mkShell {
     name = "coltarain-shell";
     # nativeBuildInputs = [ niv pkgs.nodePackages.browser-sync ];
-    nativeBuildInputs = [ niv ];
+    nativeBuildInputs = with pkgs;[ niv rust rust-analayzer libinput udev pkg-config ];
   }

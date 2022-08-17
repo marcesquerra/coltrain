@@ -17,10 +17,34 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2ed5b6b0f5d8a06c9db95c2c6b7bd559507e1c24",
-        "sha256": "1h4a0wl6gq078srs1g14gbj7laa8640pch1fjbmwyx51l4yipwk4",
+        "rev": "9a1fde0e0ca319298b1199b88f2072780e8be006",
+        "sha256": "016l3fazpalkgfw5m582j1705a8a8q90hw07kila8nnwv3i68s6n",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/2ed5b6b0f5d8a06c9db95c2c6b7bd559507e1c24.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/9a1fde0e0ca319298b1199b88f2072780e8be006.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-mozilla": {
+        "branch": "master",
+        "description": "Mozilla overlay for Nixpkgs.",
+        "homepage": "",
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "rev": "0508a66e28a5792fdfb126bbf4dec1029c2509e0",
+        "sha256": "1nswjmya72g0qriidc2pkl54zn5sg0xp36vdq0ylspca56izivxc",
+        "type": "tarball",
+        "url": "https://github.com/mozilla/nixpkgs-mozilla/archive/0508a66e28a5792fdfb126bbf4dec1029c2509e0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "rust-analyzer": {
+        "branch": "master",
+        "description": "A Rust compiler front-end for IDEs",
+        "homepage": "https://rust-analyzer.github.io/",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "d6412b58666ee399bdc56a868a79ed322d6a3fcd",
+        "sha256": "03171zx817pfqndj8aa6acxkcf9cn4d53k30w88gbybsjld6vz43",
+        "type": "tarball",
+        "url": "https://github.com/rust-lang/rust-analyzer/archive/d6412b58666ee399bdc56a868a79ed322d6a3fcd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
