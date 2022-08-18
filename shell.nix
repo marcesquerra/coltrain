@@ -8,7 +8,11 @@ let
   moz-overlay = ((import sources.nixpkgs-mozilla) ) ;
   pkgs = import sources.nixpkgs { overlays = [ moz-overlay ] ; config = {}; };
   rustChannel = (pkgs.rustChannelOf { date = "2022-08-11"; channel = "stable"; });
-  rust = rustChannel.rust;
+  rust =
+    let
+      superRust = rustChannel.rust;
+    in
+      superRust.override{targets = [(nixpkgs.rust.toRustTarget pkgs.stdenv.targetPlatform) "wasm32-unknown-unknown"];}; # {targets = [pkgs.stdenv.targetPlatform];};
   rust-src = rustChannel.rust-src;
   rustPlatform = pkgs.makeRustPlatform{
       cargo = rust;
@@ -38,7 +42,6 @@ let
 in
   pkgs.mkShell {
     name = "coltarain-shell";
-    # nativeBuildInputs = [ niv pkgs.nodePackages.browser-sync ];
     nativeBuildInputs = with pkgs;[ niv rust rust-analayzer libinput udev pkg-config ];
     shellHook = ''
       export RUST_SRC_PATH="${rust-src}/lib/rustlib/src/rust/library"
